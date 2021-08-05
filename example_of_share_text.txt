@@ -1,0 +1,9 @@
+Vodka 1600
+Juice 140
+Beer 1360
+Soup 1100
+Salade 340
+Beef 600
+Chicken 390
+Trout 750
+Coffee 320
