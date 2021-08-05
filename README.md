@@ -1,2 +1,2 @@
 # SplitBill
-Scriptable Spplication For Split Restaurant Bill
+iPhone/iPad Scriptable Application For Split Restaurant Bill
