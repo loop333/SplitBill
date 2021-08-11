@@ -40,11 +40,11 @@ async function newData(p_items = "") {
   var alert = new Alert();
   alert.title = "New Bill";
   alert.addTextField("Restaurant", "");
-  alert.addTextField("No Of Persons", "");
-  alert.addTextField("No Of Items", p_items);
-  alert.addTextField("Total", "");
-  alert.addTextField("Tip %", "10");
-  alert.addTextField("Discount", "");
+  alert.addTextField("No Of Persons", "").setNumberPadKeyboard();
+  alert.addTextField("No Of Items", p_items).setNumberPadKeyboard();
+  alert.addTextField("Total", "").setDecimalPadKeyboard();
+  alert.addTextField("Tip %", "10").setDecimalPadKeyboard();
+  alert.addTextField("Discount", "").setDecimalPadKeyboard();
   alert.addAction("OK");
   alert.addCancelAction("Cancel");
 
@@ -59,9 +59,9 @@ async function newData(p_items = "") {
     var n_persons = Number(alert.textFieldValue(1));
     var n_items = Number(alert.textFieldValue(2));
 
-    d.total = Number(alert.textFieldValue(3));
-    d.tip = Number(alert.textFieldValue(4));
-    d.discount = Number(alert.textFieldValue(5));
+    d.total = Number(alert.textFieldValue(3).replace(",", "."));
+    d.tip = Number(alert.textFieldValue(4).replace(",", "."));
+    d.discount = Number(alert.textFieldValue(5).replace(",", "."));
 
     d.persons = Array(n_persons).fill().map((_, i) => (i+1).toString());
     d.paid = Array(n_persons).fill(0.0);
@@ -270,9 +270,9 @@ async function editData_1() {
   alert.title = "Set";
   alert.addTextField("Restaurant", d.restaurant);
   alert.addTextField("Date", d.date);
-  alert.addTextField("Total", d.total.toFixed(2));
-  alert.addTextField("Tip %", d.tip.toString());
-  alert.addTextField("Discount", d.discount.toFixed(2));
+  alert.addTextField("Total", d.total.toFixed(2)).setDecimalPadKeyboard();
+  alert.addTextField("Tip %", d.tip.toString()).setDecimalPadKeyboard();
+  alert.addTextField("Discount", d.discount.toFixed(2)),setDecimalPadKeyboard();
   alert.addAction("OK");
   alert.addCancelAction("Cancel");
 
@@ -280,9 +280,9 @@ async function editData_1() {
   if (res == 0) {
     d.restaurant = alert.textFieldValue(0);
     d.date = alert.textFieldValue(1);
-    d.total = Number(alert.textFieldValue(2));
-    d.tip = Number(alert.textFieldValue(3));
-    d.discount = Number(alert.textFieldValue(4));
+    d.total = Number(alert.textFieldValue(2).replace(",", "."));
+    d.tip = Number(alert.textFieldValue(3).replace(",", "."));
+    d.discount = Number(alert.textFieldValue(4).replace(",", "."));
   }
   
   var html = `
@@ -372,9 +372,9 @@ async function editData_2() {
   alert.title = "Set";
   alert.addTextField("Restaurant", d.restaurant);
   alert.addTextField("Date", d.date);
-  alert.addTextField("Total", d.total.toFixed(2));
-  alert.addTextField("Tip", d.tip.toString());
-  alert.addTextField("Discount", d.discount.toFixed(2));
+  alert.addTextField("Total", d.total.toFixed(2)).setDecimalPadKeyboard();
+  alert.addTextField("Tip", d.tip.toString()).setDecimalPadKeyboard();
+  alert.addTextField("Discount", d.discount.toFixed(2)).setDecimalPadKeyboard();
   alert.addAction("OK");
   alert.addCancelAction("Cancel");
 
@@ -382,9 +382,9 @@ async function editData_2() {
   if (res == 0) {
     d.restaurant = alert.textFieldValue(0);
     d.date = alert.textFieldValue(1);
-    d.total = Number(alert.textFieldValue(2));
-    d.tip = Number(alert.textFieldValue(3));
-    d.discount = Number(alert.textFieldValue(4));
+    d.total = Number(alert.textFieldValue(2).replace(",", "."));
+    d.tip = Number(alert.textFieldValue(3).replace(",", "."));
+    d.discount = Number(alert.textFieldValue(4).replace(",", "."));
   }
   
   var html = `
@@ -494,9 +494,9 @@ async function editData_3() {
   alert.title = "Set";
   alert.addTextField("Restaurant", d.restaurant);
   alert.addTextField("Date", d.date);
-  alert.addTextField("Total", d.total.toFixed(2));
-  alert.addTextField("Tip", d.tip.toString());
-  alert.addTextField("Discount", d.discount.toFixed(2));
+  alert.addTextField("Total", d.total.toFixed(2)).setDecimalPadKeyboard();
+  alert.addTextField("Tip", d.tip.toString()).setDecimalPadKeyboard();
+  alert.addTextField("Discount", d.discount.toFixed(2)).setDecimalPadKeyboard();
   alert.addAction("OK");
   alert.addCancelAction("Cancel");
 
@@ -504,9 +504,9 @@ async function editData_3() {
   if (res == 0) {
     d.restaurant = alert.textFieldValue(0);
     d.date = alert.textFieldValue(1);
-    d.total = Number(alert.textFieldValue(2));
-    d.tip = Number(alert.textFieldValue(3));
-    d.discount = Number(alert.textFieldValue(4));
+    d.total = Number(alert.textFieldValue(2).replace(",", "."));
+    d.tip = Number(alert.textFieldValue(3).replace(",", "."));
+    d.discount = Number(alert.textFieldValue(4).replace(",", "."));
   }
   
   var html = `
@@ -757,7 +757,7 @@ async function modifyData() {
     var alert_persons = new Alert();
     alert_persons.title = "Edit Persons";
     for (var person in d.persons) {
-      alert_persons.addTextField(person.toString(), d.persons[person]);
+      alert_persons.addTextField((Number(person)+1).toString(), d.persons[person]);
     }
     alert_persons.addAction("OK");
     alert_persons.addCancelAction("Cancel");
@@ -776,7 +776,7 @@ async function modifyData() {
     alert_paid.title = "Edit Payments";
     for (var person in d.persons) {
 //      alert_paid.addAction(d.persons[person]);
-      alert_paid.addTextField(d.persons[person], d.paid[person].toFixed(2));
+      alert_paid.addTextField(d.persons[person], d.paid[person].toFixed(2)).setDecimalPadKeyboard();
     }
     alert_paid.addAction("OK");
     alert_paid.addCancelAction("Cancel");
@@ -785,7 +785,7 @@ async function modifyData() {
     console.log(res_paid);
     if (res_paid == 0) {
       for (var person in d.persons) {
-        d.paid[person] = Number(alert_paid.textFieldValue(person));
+        d.paid[person] = Number(alert_paid.textFieldValue(person).replace(",", "."));
       }
     }
   }
