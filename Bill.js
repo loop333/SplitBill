@@ -9,7 +9,7 @@ var d = {restaurant: "", date: "", total: 0, tip: 0, discount: 0, persons: [], p
 
 //-------------------------------------------------------------------------------------------------------
 async function setData() {
-  console.log("setData begin");
+//  console.log("setData begin");
 //  console.log(d);
 
   d = {
@@ -29,12 +29,12 @@ async function setData() {
         ]
       };
 
-  console.log("setData end");
+//  console.log("setData end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function newData(p_items = "") {
-  console.log("newData begin");
+//  console.log("newData begin");
 //  console.log(d);
 
   var alert = new Alert();
@@ -85,12 +85,12 @@ async function newData(p_items = "") {
   }
   
 //  await QuickLook.present(d, true);
-  console.log("newData end");
+//  console.log("newData end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function viewData() {
-  console.log("viewData begin");
+//  console.log("viewData begin");
 //  console.log(d);
 
   var table = new UITable();
@@ -258,12 +258,12 @@ async function viewData() {
 
   await table.present();
 
-  console.log("viewData end");
+//  console.log("viewData end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function editData_1() {
-  console.log("editData_1 begin");
+//  console.log("editData_1 begin");
 //  console.log(d);
 
   var alert = new Alert();
@@ -360,12 +360,12 @@ async function editData_1() {
     d.items[item].split = res[item].split;
   }
 
-  console.log("editData_1 end");
+//  console.log("editData_1 end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function editData_2() {
-  console.log("editData_2 begin");
+//  console.log("editData_2 begin");
 //  console.log(d);
 
   var alert = new Alert();
@@ -482,12 +482,12 @@ async function editData_2() {
     d.items[item].split = res[item].split;
   }
 
-  console.log("editData_2 end");
+//  console.log("editData_2 end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function editData_3() {
-  console.log("editData_3 begin");
+//  console.log("editData_3 begin");
 //  console.log(d);
 
   var alert = new Alert();
@@ -680,12 +680,12 @@ async function editData_3() {
     item.split = res[i].split;
   });
 
-  console.log("editData_3 end");
+//  console.log("editData_3 end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function modifyData() {
-  console.log("modifyData begin");
+//  console.log("modifyData begin");
 //  console.log(d);
 
   var alert = new Alert();
@@ -790,12 +790,12 @@ async function modifyData() {
     }
   }
 
-  console.log("modifyData end");
+//  console.log("modifyData end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function openData() {
-  console.log("openData begin");
+//  console.log("openData begin");
 //  console.log(d);
 
   var filename = await DocumentPicker.openFile();
@@ -804,12 +804,12 @@ async function openData() {
   var s = fm.readString(filename);
   d = JSON.parse(s);
 
-  console.log("openData end");
+//  console.log("openData end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function saveData() {
-  console.log("saveData begin");
+//  console.log("saveData begin");
 //  console.log(d);
 
   try {
@@ -824,27 +824,28 @@ async function saveData() {
     console.log(error);
   }
 
-  console.log("saveData end");
+//  console.log("saveData end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function saveHTMLData() {
-  console.log("saveHTMLData begin");
+//  console.log("saveHTMLData begin");
 //  console.log(d);
 
   var html = `
     <html>
-    <style>
-      .amount {
-        text-align: right;
-        width: 60px;
-      }
-      .bold {
-        font-weight: bold;
-      }
-    </style>
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <style>
+        .amount {
+          text-align: right;
+          width: 60px;
+        }
+        .bold {
+          font-weight: bold;
+        }
+      </style>
     </head>
     <body>
       ###body###    
@@ -930,18 +931,23 @@ async function saveHTMLData() {
 
   try {
     var data = Data.fromString(html);
-    var filename = "bill.html";
+    var df = new DateFormatter()
+    df.dateFormat = "dd.MM.yyyy HH:mm"
+    var date = df.date(d.date);
+    df.dateFormat = "YYYYMMdd";
+    var filename = df.string(date) + " " + d.restaurant + ".html";
+//    var filename = "bill.html";
     var f = await DocumentPicker.exportData(data, filename);
   } catch(error) {
     console.log(error);
   }
   
-  console.log("saveHTMLData end");
+//  console.log("saveHTMLData end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function readData() {
-  console.log("readData begin");
+//  console.log("readData begin");
 //  console.log(d);
 
   var text = "";
@@ -967,12 +973,12 @@ async function readData() {
     d.items[i].amount = items[i].amount;
   }
 
-  console.log("readData end");
+//  console.log("readData end");
 }
 
 //-------------------------------------------------------------------------------------------------------
 async function menu() {
-  console.log("menu begin");
+//  console.log("menu begin");
 //  console.log(d);
 
   var stop = false;
@@ -1030,7 +1036,7 @@ async function menu() {
   }
 
   Script.complete();
-  console.log("menu end");
+//  console.log("menu end");
 }
 
 //try {
